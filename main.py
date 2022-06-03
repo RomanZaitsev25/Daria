@@ -1,10 +1,10 @@
-import datetime
-
 import requests
 import telebot
 from telebot import types
+
 from config import config
 from weather import get_weather
+
 open_weather_token = '102ed5a661bc6087b45932ab7045dd47'
 
 bot = telebot.TeleBot(config.TOKEN)
@@ -26,16 +26,7 @@ def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton(text="КУРСЫ ВАЛЮТ")
     item2 = types.KeyboardButton(text="ПРОГНОЗ ПОГОДЫ")
-    item3 = types.KeyboardButton(text="ДРУГОЕ")
-    # Добавляет кнопки.
-    markup.add(item1, item2, item3)
-
-    bot.send_message(message.chat.id,
-                     'Чтобы начать, нажмите\n'
-                     'СТАРТ\n'
-                     '👇👇👇👇👇👇👇👇\n'
-                     '\n'
-                     )
+    markup.add(item1, item2)
     bot.send_message(message.chat.id,
                      'Что бы создать своего бота?\n'
                      'Перейдите вот сюда: @Manybot\n', reply_markup=markup
@@ -59,17 +50,12 @@ def bot_message(message):
                              reply_markup=markup)
         elif message.text == "ПРОГНОЗ ПОГОДЫ":
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            item1 = types.KeyboardButton(text="Введите город:")
             back = types.KeyboardButton('Назад')
-            markup.add(item1, back)
+            markup.add(back)
             bot.send_message(message.chat.id,
                              "Информаци о прогонозе погоды\n"
-                             "в различных городах", reply_markup=markup)
-        elif message.text == "ДРУГОЕ":
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            bot.send_message(message.chat.id,
-                             "ЕЩЕ НЕ ПРИДУМАЛ", reply_markup=markup)
-
+                             "в различных городах, перейдите по ссылке\n"
+                             "@weather_in_every_days_bot", reply_markup=markup)
         elif message.text == 'Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1 = types.KeyboardButton(text="КУРСЫ ВАЛЮТ")
@@ -105,9 +91,10 @@ def bot_message(message):
             data = get_rate()
             out_message = ''
             for info in data:
-                out_message += 'Курс продажи {}, курс покупки {}.\n'.format(
-                    info['RUB_in'], info['RUB_out']
-                )
+                out_message += 'Курс продажи за 100 рублей {}\n' \
+                               'Курс покупки за 100 рублей {}.\n' \
+                    .format(info['RUB_in'], info['RUB_out']
+                            )
             if not out_message:
                 out_message = 'Сайт сейчас не доступен.'
             bot.send_message(message.chat.id, out_message)

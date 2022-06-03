@@ -60,3 +60,6 @@ def main():
     city = input('Введите город:')
     get_weather(city, open_weather_token)
 
+
+if __name__ == '__main__':
+    main()
