@@ -53,7 +53,7 @@ def bot_message(message):
             back = types.KeyboardButton('Назад')
             markup.add(back)
             bot.send_message(message.chat.id,
-                             "Информаци о прогонозе погоды\n"
+                             "Информация о прогонозе погоды\n"
                              "в различных городах, перейдите по ссылке\n"
                              "@weather_in_every_days_bot", reply_markup=markup)
         elif message.text == 'Назад':
