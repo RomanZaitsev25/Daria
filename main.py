@@ -46,7 +46,7 @@ def bot_message(message):
             back = types.KeyboardButton('Назад')
             markup.add(item1, item2, item3, item4, back)
             bot.send_message(message.chat.id,
-                             "Здесь представлен курс различных валют в банке",
+                             'Здесь представлен курс различных валют в банке',
                              reply_markup=markup)
         elif message.text == "ПРОГНОЗ ПОГОДЫ":
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
