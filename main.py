@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 
 from config import config
-from weather import get_weather
+
 
 open_weather_token = '102ed5a661bc6087b45932ab7045dd47'
 
